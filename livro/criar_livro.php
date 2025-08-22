@@ -1,28 +1,30 @@
 <?php
 header('Content-Type: application/json');
-include '../../db.php'; // Ajuste conforme sua estrutura
+include '../db.php'; // Ajuste conforme sua estrutura
 
 $titulo = trim($_POST['titulo'] ?? '');
 $autor = trim($_POST['autor'] ?? '');
 $isbn = trim($_POST['isbn'] ?? '');
 
+// Título e autor continuam obrigatórios
+if ($titulo === '' || $autor === '') {
+    echo json_encode(['status' => 'error', 'message' => 'Preencha título e autor.']);
+    exit;
+}
+
+// ISBN só valida se houver valor
+if ($isbn !== '' && !preg_match('/^[0-9Xx]+$/', $isbn)) {
+    echo json_encode(['status' => 'error', 'message' => 'Formato de ISBN inválido.']);
+    exit;
+}
+
 try {
-    if ($titulo === '' || $autor === '' || $isbn === '') {
-        echo json_encode(['status' => 'error', 'message' => 'Preencha todos os campos.']);
-        exit;
-    }
-
-    if (!preg_match('/^[0-9Xx]+$/', $isbn)) {
-        echo json_encode(['status' => 'error', 'message' => 'Formato de ISBN inválido.']);
-        exit;
-    }
-
     $sql = "INSERT INTO livros (titulo, autor, isbn) VALUES (:titulo, :autor, :isbn)";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([
         ':titulo' => $titulo,
         ':autor' => $autor,
-        ':isbn' => $isbn
+        ':isbn' => $isbn ?: null  // Se vazio, salva NULL no banco
     ]);
 
     echo json_encode(['status' => 'success', 'message' => 'Livro cadastrado com sucesso!']);

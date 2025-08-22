@@ -2,12 +2,11 @@
 include '../db.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nome = isset($_POST['nome']) ? $_POST['nome'] : '';
-    $cpf = isset($_POST['cpf']) ? $_POST['cpf'] : '';
-    $senha = isset($_POST['senha']) ? $_POST['senha'] : '';
-    $email = isset($_POST['email']) ? $_POST['email'] : '';
+    $nome  = $_POST['nome'] ?? '';
+    $cpf   = $_POST['cpf'] ?? '';
+    $senha = $_POST['senha'] ?? '';
+    $email = $_POST['email'] ?? '';
 
-    // Verifica se os campos obrigatórios não estão vazios
     if ($nome == '' || $cpf == '' || $senha == '' || $email == '') {
         echo "Por favor, preencha todos os campos.";
         exit;
@@ -36,74 +35,119 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Professor</title>
-    <style>
-        /* Estilos para o formulário */
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cadastro de Professor</title>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: url("https://play-lh.googleusercontent.com/proxy/OIynLVxYQ725Q0NFTPdTG0Qi5DYqtJBYLTzje5GI977e4U9-TgWhqBgUyXdtJqC5fSjzkvrG9xUujv5sETGEa4-xBApDcpDSmYhcK75rjpR3tD4IxzrIg9o=s1920-w1920-h1080") no-repeat center center fixed;
+        background-size: cover;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding-right: 50px;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 400px;
+        padding: 40px;
+        background: rgba(255, 255, 255, 0.85);
+        border-radius: 15px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        text-align: left;
+        backdrop-filter: blur(5px);
+    }
+
+    h1 {
+        color: rgb(125, 166, 225);
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 1px solid #bbb;
+        border-radius: 8px;
+        outline: none;
+        transition: 0.3s;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+        border-color: rgb(53, 100, 182);
+        box-shadow: 0 0 8px rgba(38, 57, 183, 0.4);
+    }
+
+    input[type="submit"] {
+        background: linear-gradient(135deg,rgb(32, 124, 210),rgb(38, 110, 211));
+        color: white;
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+
+    input[type="submit"]:hover {
+        background: linear-gradient(135deg,rgb(44, 70, 176),rgb(104, 154, 202));
+        transform: scale(1.05);
+    }
+
+    .botao-voltar {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            text-decoration: none;
+            font-size: 1.5rem;
+            color: white;
+            background-color: rgba(0,0,0,0.3);
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .botao-voltar:hover {
+            background-color: rgba(0,0,0,0.5);
+        }
+
+    @media (max-width: 900px) {
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #e3f2fd;
-            color: #333;
-            margin: 0;
-            padding: 0;
-            display: flex;
+            flex-direction: column;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
+            padding: 20px;
         }
 
         .container {
-            width: 200%;
-            max-width: 600px;
-            padding: 60px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 100%;
         }
-
-        h1 {
-            text-align: center;
-            color: #1976d2;
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        input[type="submit"] {
-            background-color: #1976d2;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #1565c0;
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
+
+<a href="../inicial.php" class="botao-voltar" title="Voltar">&#8592; Voltar</a>
+
     <div class="container">
         <h1>Cadastro de Professor</h1>
         <form method="post" action="">
@@ -111,7 +155,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="text" id="nome" name="nome" required>
 
             <label for="cpf">CPF:</label>
-            <input type="text" id="cpf" name="cpf" required>
+            <input type="text" id="cpf" name="cpf" maxlength="14" oninput="mascaraCPF(this)" placeholder="000.000.000-00" required>
 
             <label for="senha">Senha:</label>
             <input type="password" id="senha" name="senha" required>
@@ -122,5 +166,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="submit" value="Cadastrar">
         </form>
     </div>
+
+<script>
+function mascaraCPF(input) {
+    let v = input.value.replace(/\D/g, ''); // remove tudo que não é número
+    v = v.slice(0, 11); // limita a 11 dígitos
+
+    // aplica a máscara: 000.000.000-00
+    v = v.replace(/(\d{3})(\d)/, '$1.$2');
+    v = v.replace(/(\d{3})(\d)/, '$1.$2');
+    v = v.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+
+    input.value = v;
+}
+</script>
 </body>
 </html>

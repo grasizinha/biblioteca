@@ -13,27 +13,69 @@ $alunos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Alunos</title>
-    <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lista de Alunos</title>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background: url("../imagem/tianadsd.jpg") no-repeat center center fixed;
+        background-size: cover;
+        color: #333;
+    }
+
+    h1 {
+        text-align: center;
+        margin-top: 30px;
+        color: #f8e1f4; /* Rosa clarinho */
+        text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+        font-family: 'Georgia', serif;
+    }
+
+    table {
+        width: 80%;
+        margin: 30px auto;
+        border-collapse: collapse;
+        background-color: rgba(100, 65, 164, 0.85); /* Roxo escuro semitransparente */
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    th, td {
+        padding: 15px;
+        text-align: center;
+        border-bottom: 1px solid rgba(255,255,255,0.3);
+    }
+
+    th {
+        background-color: rgba(196, 136, 255, 0.9); /* Lilás vivo */
+        color: #fff;
+        font-weight: 700;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+    }
+
+    td {
+        color: #fdf5fb; /* Rosa bem clarinho */
+    }
+
+    tr:hover {
+        background-color: rgba(255, 182, 193, 0.3); /* Rosa bebê suave */
+    }
+
+    tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    @media (max-width: 768px) {
         table {
-            width: 80%;
-            border-collapse: collapse;
-            margin: 20px auto;
+            width: 95%;
         }
-        th, td {
-            padding: 12px;
-            border: 1px solid #ddd;
-            text-align: center;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-    </style>
+    }
+</style>
+
 </head>
 <body>
 

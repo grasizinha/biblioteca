@@ -53,7 +53,7 @@ include "relatorios_back.php";
             <!-- Botão de voltar -->
     <div style="grid-column: 1 / 3; margin-top: 10px; text-align: left;">
         <button onclick="window.location.href='../backup/listas_gerais.php'" 
-            style="padding: 10px 20px; background-color: #2196F3; color: #fff; border: none; border-radius: 5px; cursor: pointer;">
+            style="padding: 10px 20px; background-color:rgb(97, 66, 182); color: #fff; border: none; border-radius: 5px; cursor: pointer;">
             Voltar
         </button>
     </div>
